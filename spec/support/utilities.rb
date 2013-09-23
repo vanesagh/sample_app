@@ -1,4 +1,5 @@
 def full_title(page_title)
+
   base_title = "Real time communication App"
   if page_title.empty?
     base_title

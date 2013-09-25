@@ -7,6 +7,7 @@ validates :email, presence: true,
 format: { with: VALID_EMAIL_REGEX },
 uniqueness: { case_sensitive: false }
 has_secure_password
+ has_many :microposts, dependent: :destroy
 validates :password, length: { minimum: 6 }
 
 def User.new_remember_token
@@ -16,6 +17,13 @@ def User.new_remember_token
   def User.encrypt(token)
     Digest::SHA1.hexdigest(token.to_s)
   end
+  
+  def feed
+    # This is preliminary. See "Following users" for the full implementation.
+    Micropost.where("user_id = ?", id)
+  end
+  
+  
 
   private
 
